@@ -1,30 +1,19 @@
 import requestJson from '../utils';
 
-export const CATEGORIES_LOADED = 'categories/loaded';
-export const TRANSACTIONS_LOADED = 'transactions/loaded';
+export const DATAS_LOADED = 'datas/loaded';
 
-export const categoriesLoaded = categories => ({
-  type: CATEGORIES_LOADED,
-  payload: categories,
+export const datasLoaded = datas => ({
+  type: DATAS_LOADED,
+  payload: datas,
 });
 
-export const transactionsLoaded = transactions => ({
-  type: TRANSACTIONS_LOADED,
-  payload: transactions,
-});
-
-export const loadCategories = () => (dispatch) => {
-  const uri = 'https://crossquantum.com/technicaltest/categories';
-  requestJson(uri)
-    .then(categories => dispatch(categoriesLoaded(categories)))
-    .catch(err => console.log('err: ', err))
+export const loadDatas = (toLoad) => (dispatch) => {
+  const uri = `https://crossquantum.com/technicaltest/${toLoad}`;
+  setTimeout(() => {
+    requestJson(uri)
+      .then(datas => dispatch(datasLoaded(datas)))
+      .catch(err => console.log('error: ', err))
+  }, 2000);
 }
 
-export const loadTransactions = () => (dispatch) => {
-  const uri = 'https://crossquantum.com/technicaltest/transactions';
-  requestJson(uri)
-    .then(transactions => dispatch(transactionsLoaded(transactions)))
-    .catch(err => console.log('err: ', err))
-}
-
-export default { loadCategories, loadTransactions };
+export default loadDatas;

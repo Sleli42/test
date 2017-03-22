@@ -2,23 +2,26 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { loadCategories, loadTransactions } from '../actions';
-import Board from './board';
+import loadDatas from '../actions';
+// import Panel from './Panel';
 
 const Wrapper = styled.div`
-  
+
 `;
 
-const App = ({ actions, categories, transactions }) => {
-  return (
-    <Wrapper>
-      <Board categories={categories} transactions={transactions} />
-    </Wrapper>
-  )
-}
+const App = ({ actions, datas }) =>
+  <Wrapper>
+    {/* <Panel /> */}
+  </Wrapper>
+  ;
 
-  const mapStateToProps = state => state;
-  const actions = { loadCategories, loadTransactions };
-  const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, dispatch) });
+App.PropTypes = {
+  actions: PropTypes.object.isRequired,
+  datas: PropTypes.object.isRequired,
+};
 
-  export default connect(mapStateToProps, mapDispatchToProps)(App);
+const mapStateToProps = state => state;
+const actions = { loadDatas };
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

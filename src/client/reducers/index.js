@@ -1,5 +1,13 @@
-import { combineReducers } from 'redux';
-import categories from './categories';
-import transactions from './transactions';
+import {
+  DATAS_LOADED,
+} from '../actions';
 
-export default combineReducers({ categories, transactions });
+const datasReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DATAS_LOADED:
+      return { data: [...action.payload] };
+    default: return state;
+  }
+};
+
+export default datasReducer;
