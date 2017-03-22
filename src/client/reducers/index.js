@@ -1,13 +1,13 @@
 import {
-  DATAS_LOADED,
+  DATA_LOADED,
 } from '../actions';
 
-const datasReducer = (state = {}, action) => {
+const rootReducer = (state = {}, action) => {
   switch (action.type) {
-    case DATAS_LOADED:
-      return { data: [...action.payload] };
+    case DATA_LOADED:
+      return { data: [action.payload] };
     default: return state;
   }
 };
 
-export default datasReducer;
+export default rootReducer;

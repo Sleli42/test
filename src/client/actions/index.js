@@ -1,17 +1,15 @@
 import requestJson from '../utils';
+import { uri } from '../../../config/';
 
-export const DATAS_LOADED = 'datas/loaded';
+export const DATA_LOADED = 'datas/loaded';
 
-export const datasLoaded = datas => ({
-  type: DATAS_LOADED,
-  payload: datas,
+export const dataLoaded = data => ({
+  type: DATA_LOADED,
+  payload: data,
 });
 
-export const loadDatas = (toLoad) => (dispatch) => {
-  const uri = `https://crossquantum.com/technicaltest/${toLoad}`;
-  setTimeout(() => {
-    requestJson(uri)
-      .then(datas => dispatch(datasLoaded(datas)))
-      .catch(err => console.log('error: ', err));
-  }, 2000);
+export const loadData = () => (dispatch) => {
+  requestJson(uri)
+    .then(data => dispatch(dataLoaded(data)))
+    .catch(err => console.log('error: ', err));
 };

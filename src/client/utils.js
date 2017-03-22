@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import { server } from '../../config';
 
 const checkStatus = (result) => {
   if (result.status !== 200) {
@@ -21,9 +20,7 @@ const requestJson = (uri, { method = 'GET', body, dispatch } = {}) => {
   }
   return fetch(uri, params)
     .then(checkStatus).then(paserJson)
-    .then((result) => {
-      return result;
-    })
+    .then((result) => result)
     .catch((error) => {
       console.log('ERROR:', error);
     });

@@ -3,13 +3,12 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import App from './components/App';
-import { loadDatas } from './actions';
+import { loadData } from './actions';
 
 const initialState = {};
 const store = configureStore(initialState);
 
-store.dispatch(loadDatas('transactions'));
-// store.dispatch(loadDatas('categories'));
+store.dispatch(loadData());
 
 const mountNode = window.document.getElementById('root');
 const root = (
@@ -18,5 +17,4 @@ const root = (
   </Provider>
 );
 
-console.log('testCrossQ in progress...'); // eslint-disable-line no-console
 render(root, mountNode);

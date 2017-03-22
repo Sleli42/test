@@ -1,22 +1,19 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import loadDatas from '../actions';
-// import Panel from './Panel';
+import loadData from '../actions';
 
-const App = ({ actions, datas }) =>
-  <div>
-    {/* <Panel /> */}
-  </div>
+const App = ({ loadData, data }) =>
+  <div />
   ;
 
 App.propTypes = {
-  actions: PropTypes.object,
-  datas: PropTypes.object,
+  loadData: PropTypes.func,
+  data: PropTypes.array,
 };
 
 const mapStateToProps = state => state;
-const actions = { loadDatas };
+const actions = { loadData };
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
