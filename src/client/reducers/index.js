@@ -1,5 +1,19 @@
-import { combineReducers } from 'redux';
-import categories from './categories';
-import transactions from './transactions';
+import {
+  CATEGORIES_LOADED,
+  TRANSACTIONS_LOADED,
+  MODE_TOGGLED,
+} from '../actions';
 
-export default combineReducers({ categories, transactions });
+const rootReducers = (state = {}, action) => {
+  switch (action.type) {
+    case CATEGORIES_LOADED:
+      return { ...state, categories: action.payload };
+    case TRANSACTIONS_LOADED:
+      return { ...state, transactions: action.payload };
+    case MODE_TOGGLED:
+      return { ...state, mode: action.payload };
+    default: return state;
+  }
+};
+
+export default rootReducers;

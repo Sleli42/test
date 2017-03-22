@@ -2,23 +2,31 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { loadCategories, loadTransactions } from '../actions';
-import Board from './board';
+import { toggleMode } from '../actions';
+import { getAllDataSummed } from '../selectors';
+import ListData from './ListData';
 
 const Wrapper = styled.div`
-  
+
 `;
 
-const App = ({ actions, categories, transactions }) => {
+const App = ({ toggleMode, allDataSummed, mode }) => {
   return (
     <Wrapper>
-      <Board categories={categories} transactions={transactions} />
+      <div>
+        <button value="depenses" onClick={() => toggleMode('depenses')}>Dépenses</button>
+        <button value="revenus" onClick={() => toggleMode('revenus')}>Revenus</button>
+      </div>
+      {(allDataSummed) ? <ListData data={allDataSummed} mode={mode} /> : null}
     </Wrapper>
   )
 }
 
-  const mapStateToProps = state => state;
-  const actions = { loadCategories, loadTransactions };
-  const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, dispatch) });
+const mapStateToProps = state => ({
+  allDataSummed: getAllDataSummed(state),
+  mode: state.mode,
+});
+const actions = { toggleMode };
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
-  export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
