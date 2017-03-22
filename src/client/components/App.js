@@ -1,23 +1,18 @@
 import React, { PropTypes } from 'react';
-import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import loadDatas from '../actions';
 // import Panel from './Panel';
 
-const Wrapper = styled.div`
-
-`;
-
 const App = ({ actions, datas }) =>
-  <Wrapper>
+  <div>
     {/* <Panel /> */}
-  </Wrapper>
+  </div>
   ;
 
-App.PropTypes = {
-  actions: PropTypes.object.isRequired,
-  datas: PropTypes.object.isRequired,
+App.propTypes = {
+  actions: PropTypes.object,
+  datas: PropTypes.object,
 };
 
 const mapStateToProps = state => state;

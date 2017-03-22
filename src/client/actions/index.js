@@ -12,8 +12,6 @@ export const loadDatas = (toLoad) => (dispatch) => {
   setTimeout(() => {
     requestJson(uri)
       .then(datas => dispatch(datasLoaded(datas)))
-      .catch(err => console.log('error: ', err))
+      .catch(err => console.log('error: ', err));
   }, 2000);
-}
-
-export default loadDatas;
+};
