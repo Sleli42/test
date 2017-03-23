@@ -15,9 +15,9 @@ export const transactionsLoaded = transactions => ({
   payload: transactions,
 });
 
-export const modeToggled = mode => ({
+export const modeToggled = bool => ({
   type: MODE_TOGGLED,
-  payload: mode,
+  payload: bool,
 });
 
 export const loadCategories = () => (dispatch) => {
@@ -32,6 +32,6 @@ export const loadTransactions = () => (dispatch) => {
     .catch(err => console.log('err: ', err))
 }
 
-export const toggleMode = value => (dispatch) => {
-  if (value) dispatch(modeToggled(value))
+export const toggleMode = (bool) => (dispatch) => {
+  dispatch(modeToggled(bool))
 }

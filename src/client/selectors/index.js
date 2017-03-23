@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 
 const getCategories = state => state.categories;
 const getTransactions = state => state.transactions;
+const getMode = state => state.mode;
 
 const matchTransactions = (transactions, id) => R.filter(t => t.category.id === id)(transactions);
 
@@ -22,9 +23,18 @@ export const getAllDataSummed = createSelector(
   [getCategories, getTransactions],
   (categories, transactions) => {
     const allData = (categories && transactions) ? matchAll(categories, transactions) : null;
-    // console.log('allData: ', allData);
     const summingData = (allData) ? sumAllData(allData) : null;
-    // console.log('sum: ', summingData);
     return summingData;
   },
+);
+
+const filterValues = (transactions, mode) => {
+  return (!mode)
+    ? R.filter(t => R.prop('value', t) < 0)(transactions)
+    : R.filter(t => R.prop('value', t) > 0)(transactions)
+}
+
+export const getDatafiltered = createSelector(
+  [getCategories, getTransactions, getMode],
+  (categories = [], transactions = [], mode) => filterValues(transactions, mode)
 );

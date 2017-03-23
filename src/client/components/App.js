@@ -3,27 +3,28 @@ import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { toggleMode } from '../actions';
-import { getAllDataSummed } from '../selectors';
+import { getAllDataSummed, getDatafiltered } from '../selectors';
 import ListData from './ListData';
 
 const Wrapper = styled.div`
 
 `;
 
-const App = ({ toggleMode, allDataSummed, mode }) => {
+const App = ({ toggleMode, filteredData, mode }) => {
+  console.log('filtered: ', filteredData);
   return (
     <Wrapper>
       <div>
-        <button value="depenses" onClick={() => toggleMode('depenses')}>Dépenses</button>
-        <button value="revenus" onClick={() => toggleMode('revenus')}>Revenus</button>
+        <button value="depenses" onClick={() => toggleMode(0)}>Dépenses</button>
+        <button value="revenus" onClick={() => toggleMode(1)}>Revenus</button>
       </div>
-      {(allDataSummed) ? <ListData data={allDataSummed} mode={mode} /> : null}
+      {/* {(allDataSummed) ? <ListData data={allDataSummed} mode={mode} /> : null} */}
     </Wrapper>
   )
 }
 
 const mapStateToProps = state => ({
-  allDataSummed: getAllDataSummed(state),
+  filteredData: getDatafiltered(state),
   mode: state.mode,
 });
 const actions = { toggleMode };
