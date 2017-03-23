@@ -11,12 +11,11 @@ const Wrapper = styled.div`
 `;
 
 const App = ({ toggleMode, filteredData, mode }) => {
-  console.log('filtered: ', filteredData);
   return (
     <Wrapper>
       <div>
-        <button value="depenses" onClick={() => toggleMode(0)}>Dépenses</button>
-        <button value="revenus" onClick={() => toggleMode(1)}>Revenus</button>
+        <button value="depenses" onClick={() => toggleMode(Boolean(mode))}>Dépenses</button>
+        <button value="revenus" onClick={() => toggleMode(!Boolean(mode))}>Revenus</button>
       </div>
       {/* {(allDataSummed) ? <ListData data={allDataSummed} mode={mode} /> : null} */}
     </Wrapper>
