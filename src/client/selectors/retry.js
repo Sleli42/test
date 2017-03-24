@@ -7,9 +7,12 @@ const getTrainingSessions = data => data.trainingSessions;
 
 const getSkillsPoints = skills => R.reduce((acc, skill) => acc += skill.points, 0)(skills)
 
+const getHPeople = R.reduce((acc, person) => ({ ...acc, [person.id]: person.lastName }), {});
+const getHCourses = R.reduce((acc, lesson) => ({ ...acc, [lesson.id]: getSkillsPoints(lesson.skillPoints) }), {});
+
 const matchPersonAndCourses = (people, courses) => trainingSessions => {
-  const hPeople = R.reduce((acc, person) => ({ ...acc, [person.id]: person.lastName }), {})(people);
-  const hCourses = R.reduce((acc, lesson) => ({ ...acc, [lesson.id]: getSkillsPoints(lesson.skillPoints) }), {})(courses);
+  const hPeople = getHPeople(people);
+  const hCourses = getHCourses(courses);
   return R.reduce((acc, session) => {
     const personName = hPeople[session.userId];
     const coursePoints = hCourses[session.courseId];
@@ -21,7 +24,9 @@ const matchPersonAndCourses = (people, courses) => trainingSessions => {
 
 const doSort = R.sortBy(R.prop(1));
 
-const getSkillsByPerson = (people, courses, trainingSessions) => R.compose(R.fromPairs, doSort, R.toPairs, matchPersonAndCourses(people, courses))(trainingSessions)
+const convert = R.compose(R.map(R.zipObj(['name', 'points'])), R.toPairs);
+
+const getSkillsByPerson = (people, courses, trainingSessions) => R.compose(convert, R.fromPairs, doSort, R.toPairs, matchPersonAndCourses(people, courses))(trainingSessions)
 
 export const getSkills = createSelector(
   [getPeople, getCourses, getTrainingSessions],
